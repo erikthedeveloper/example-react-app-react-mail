@@ -1,0 +1,23 @@
+{
+  "name": "messaging-app",
+  "version": "1.0.0",
+  "description": "Describe messaging-app here",
+  "private": true,
+  "scripts": {
+    "build": "nwb build",
+    "clean": "nwb clean",
+    "start": "nwb serve",
+    "test": "nwb test",
+    "test:watch": "nwb test --server"
+  },
+  "dependencies": {
+    "react": "0.14.x",
+    "react-dom": "0.14.x"
+  },
+  "devDependencies": {
+    "nwb": "0.8.x"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": ""
+}
