@@ -1,0 +1,27 @@
+.flex-center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon,
+.clickable {
+  cursor: pointer;
+}
+
+.message-list-item {
+  cursor: pointer;
+  margin-top: 0 !important;
+  padding-bottom: 10px;
+  &:hover {
+    background-color: #F9F2F4;
+  }
+}
+
+.text-red {
+  color: red;
+}
+
+body, html {
+  background-color: #FFF;
+}
