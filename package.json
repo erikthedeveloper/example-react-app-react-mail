@@ -6,16 +6,22 @@
   "scripts": {
     "build": "nwb build",
     "clean": "nwb clean",
-    "start": "nwb serve",
+    "start": "npm run nwb-server & npm run json-server",
+    "nwb-server": "nwb serve --auto-install --reload",
     "test": "nwb test",
-    "test:watch": "nwb test --server"
+    "test:watch": "nwb test --server",
+    "json-server": "json-server json-server.js --port=3001"
   },
   "dependencies": {
+    "classnames": "~2.2.3",
     "react": "0.14.x",
     "react-dom": "0.14.x"
   },
   "devDependencies": {
-    "nwb": "0.8.x"
+    "faker": "~3.1.0",
+    "json-server": "~0.8.9",
+    "nwb": "~0.8.x",
+    "nwb-sass": "~0.5.0"
   },
   "author": "",
   "license": "MIT",
