@@ -121,34 +121,37 @@ export const App = React.createClass({
 
   render() {
     const {
-      state: {
-        messages,
-        searchText,
-        filterFlagged,
-        selectedMessageId,
-      },
-      updateFilterFlagged,
-      updateSearchText,
-      deleteMessage,
-      toggleMessageFlagged,
-      selectMessage,
-    } = this;
+      messages,
+      searchText,
+      filterFlagged,
+      selectedMessageId,
+    } = this.state;
 
-    const mainContent = selectedMessageId
-      ? <Message {...{
-          message: this.getMessage(selectedMessageId),
-          back: () => this.selectMessage(),
-        }} />
-      : <MessageBrowser {...{
-          messages,
-          filterFlagged,
-          searchText,
-          updateFilterFlagged,
-          updateSearchText,
-          deleteMessage,
-          toggleMessageFlagged,
-          selectMessage,
-        }} />;
+    const mainContent = (() => {
+      if (selectedMessageId) {
+        const message = messages
+          .filter(message => message.id === selectedMessageId)[0];
+        return (
+          <Message
+            message={message}
+            back={() => this.selectMessage()}
+          />
+        );
+      }
+
+      return (
+        <MessageBrowser
+          messages={messages}
+          filterFlagged={filterFlagged}
+          searchText={searchText}
+          updateFilterFlagged={this.updateFilterFlagged}
+          updateSearchText={this.updateSearchText}
+          deleteMessage={this.deleteMessage}
+          toggleMessageFlagged={this.toggleMessageFlagged}
+          selectMessage={this.selectMessage}
+        />
+      );
+    })();
 
     return (
       <AppLayout>
