@@ -15,7 +15,8 @@
   "dependencies": {
     "classnames": "~2.2.3",
     "react": "0.14.x",
-    "react-dom": "0.14.x"
+    "react-dom": "0.14.x",
+    "react-router": "2.0.1"
   },
   "devDependencies": {
     "faker": "~3.1.0",
