@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 import { Icon } from './Icon';
 
 const makeEventKiller = fn => event => {
@@ -10,10 +11,9 @@ const makeEventKiller = fn => event => {
 
 export function MessageListItem(props) {
   const {
-    message: {from, fromAvatar, subject, body, flagged},
+    message: {id, from, fromAvatar, subject, body, flagged},
     deleteMessage,
     toggleFlagged,
-    selectMessage,
   } = props;
 
   const onClickFlag = makeEventKiller(toggleFlagged);
@@ -21,7 +21,7 @@ export function MessageListItem(props) {
   const onClickReply = makeEventKiller(() => alert(`Reply to ${from}`));
 
   return (
-    <div className="media hide message-list-item" onClick={selectMessage}>
+    <div className="media hide message-list-item">
       <div className="media-left">
         <div className="image is-64x64">
           <img src={fromAvatar} />
@@ -29,15 +29,15 @@ export function MessageListItem(props) {
       </div>
       <div className="media-content content columns">
         <div className="column is-10">
-          <strong>
+          <Link to={`/${id}`} className="is-link">
             {subject}
-          </strong>
+          </Link>
           <p>
             {`${body.substring(0, 100 )}...`}
           </p>
           <div>
             <small>
-              <a onClick={onClickReply}>
+              <a className="is-link" onClick={onClickReply}>
                 Reply to {from}
               </a> ·
               2 Days Ago ·

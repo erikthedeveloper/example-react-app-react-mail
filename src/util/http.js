@@ -1,3 +1,6 @@
+// If we wanted to polyfill the fetch API (recommended).
+// https://github.com/github/fetch
+// require('whatwg-fetch');
 
 const baseUrl = 'http://localhost:3001';
 

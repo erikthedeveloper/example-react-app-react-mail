@@ -121,41 +121,33 @@ export const App = React.createClass({
 
   render() {
     const {
+      children,
+    } = this.props;
+    const {
       messages,
       searchText,
       filterFlagged,
       selectedMessageId,
     } = this.state;
 
-    const mainContent = (() => {
-      if (selectedMessageId) {
-        const message = messages
-          .filter(message => message.id === selectedMessageId)[0];
-        return (
-          <Message
-            message={message}
-            back={() => this.selectMessage()}
-          />
-        );
-      }
-
-      return (
-        <MessageBrowser
-          messages={messages}
-          filterFlagged={filterFlagged}
-          searchText={searchText}
-          updateFilterFlagged={this.updateFilterFlagged}
-          updateSearchText={this.updateSearchText}
-          deleteMessage={this.deleteMessage}
-          toggleMessageFlagged={this.toggleMessageFlagged}
-          selectMessage={this.selectMessage}
-        />
-      );
-    })();
+    const childrenProps = {
+      messages,
+      searchText,
+      filterFlagged,
+      selectedMessageId,
+      updateFilterFlagged: this.updateFilterFlagged,
+      updateSearchText: this.updateSearchText,
+      deleteMessage: this.deleteMessage,
+      toggleMessageFlagged: this.toggleMessageFlagged,
+      selectMessage: this.selectMessage,
+    };
 
     return (
       <AppLayout>
-        {mainContent}
+        {React.Children.map(
+          children,
+          child => React.cloneElement(child, childrenProps)
+        )}
       </AppLayout>
     );
   }

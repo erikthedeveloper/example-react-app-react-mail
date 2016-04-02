@@ -12,7 +12,6 @@ export function MessageBrowser(props) {
     updateSearchText,
     deleteMessage,
     toggleMessageFlagged,
-    selectMessage,
   } = props;
 
   return (
@@ -31,7 +30,6 @@ export function MessageBrowser(props) {
         {messages.map(message => (
           <MessageListItem
             key={message.id}
-            selectMessage={() => selectMessage(message.id)}
             deleteMessage={() => deleteMessage(message.id)}
             toggleFlagged={() => toggleMessageFlagged(message.id)}
             message={message}

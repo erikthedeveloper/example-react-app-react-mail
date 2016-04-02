@@ -1,31 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router';
+import { Icon } from './Icon';
 
-export function Message(props) {
-  const {
-    message: {from, fromAvatar, subject, body},
-    back,
-  } = props;
+export function Message({message, deleteMessage}) {
+  const deleteMe = () => deleteMessage(message.id);
   return (
     <div>
-      <a className="is-link" onClick={back}>
+      <Link to="/" className="button is-info is-outlined">
         Back
-      </a>
+      </Link>
+      <button onClick={deleteMe} className="button is-danger is-outlined is-pulled-right">
+        <Icon name="trash" />
+      </button>
       <hr />
       <div className="columns">
         <div className="column is-3">
           <div className="image">
-            <img src={fromAvatar} />
+            <img src={message.fromAvatar} />
           </div>
         </div>
         <div className="column">
           <h1 className="title">
-            {from}
+            {message.from}
           </h1>
           <h2 className="subtitle">
-            {subject}
+            {message.subject}
           </h2>
           <p className="subtitle is-5">
-            {body}
+            {message.body}
           </p>
         </div>
       </div>
