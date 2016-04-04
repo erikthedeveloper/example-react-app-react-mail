@@ -7,7 +7,7 @@
     "build": "nwb build",
     "clean": "nwb clean",
     "start": "npm run nwb-server & npm run json-server",
-    "nwb-server": "nwb serve --auto-install --reload",
+    "nwb-server": "nwb serve --fallback --auto-install --reload",
     "test": "nwb test",
     "test:watch": "nwb test --server",
     "json-server": "json-server json-server.js --port=3001"
