@@ -4,24 +4,6 @@ import { AppLayout } from './../AppLayout';
 import { request, toQueryString } from './../../util/http';
 
 /**
- * Build up query string from state.
- * @param state
- * @return string
- */
-function buildQueryString(state) {
-  const {filterFlagged, searchText} = state;
-  const queryParams = {
-    _limit: 5,
-  };
-  if (filterFlagged)
-    queryParams.flagged = true;
-  if (searchText)
-    queryParams.q = searchText.trim();
-
-  return toQueryString(queryParams);
-}
-
-/**
  * The top level App component!
  */
 export const AppContainer = React.createClass({
@@ -141,3 +123,21 @@ export const AppContainer = React.createClass({
     );
   }
 });
+
+/**
+ * Build up query string from state.
+ * @param state
+ * @return string
+ */
+function buildQueryString(state) {
+  const {filterFlagged, searchText} = state;
+  const queryParams = {
+    _limit: 5,
+  };
+  if (filterFlagged)
+    queryParams.flagged = true;
+  if (searchText)
+    queryParams.q = searchText.trim();
+
+  return toQueryString(queryParams);
+}
