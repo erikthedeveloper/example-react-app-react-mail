@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { AppLayout } from './components/AppLayout';
-import { request, toQueryString } from './util/http';
+import { AppLayout } from './../AppLayout';
+import { request, toQueryString } from './../../util/http';
 
 /**
  * Build up query string from state.
@@ -24,7 +24,7 @@ function buildQueryString(state) {
 /**
  * The top level App component!
  */
-export const App = React.createClass({
+export const AppContainer = React.createClass({
 
   getInitialState() {
     return {
