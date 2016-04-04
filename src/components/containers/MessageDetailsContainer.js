@@ -51,6 +51,11 @@ export const MessageDetailsContainer = React.createClass({
     deleteMessage(Number(id));
   },
 
+  toggleFlagged() {
+    const {params: {id}, toggleMessageFlagged} = this.props;
+    toggleMessageFlagged(Number(id));
+  },
+
   render() {
     const message = findMessage(this.props);
 
@@ -64,6 +69,7 @@ export const MessageDetailsContainer = React.createClass({
       ...this.props,
       message,
       deleteMessage: this.deleteMessage,
+      toggleFlagged: this.toggleFlagged,
     };
 
     return <MessageDetails {...props} />;

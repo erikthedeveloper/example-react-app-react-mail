@@ -1,15 +1,21 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Link } from 'react-router';
 import { Icon } from './Icon';
 
-export function MessageDetails({message, deleteMessage}) {
+const btnClasses = "button is-outlined is-pulled-right";
+
+export function MessageDetails({message, deleteMessage, toggleFlagged}) {
   return (
     <div>
       <Link to="/" className="button is-info is-outlined">
         Back
       </Link>
-      <button onClick={deleteMessage} className="button is-danger is-outlined is-pulled-right">
+      <button onClick={deleteMessage} className={btnClasses}>
         <Icon name="trash" />
+      </button>
+      <button onClick={toggleFlagged} className={classnames(btnClasses, {'text-red': message.flagged})}>
+        <Icon name="flag" />
       </button>
       <hr />
       <div className="columns">

@@ -16,6 +16,9 @@
 
 .text-red {
   color: red;
+  &:hover {
+    color: darken(red, 10%);
+  }
 }
 
 body, html {
