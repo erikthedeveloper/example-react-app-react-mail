@@ -6,11 +6,18 @@ const baseUrl = 'http://localhost:3001';
 
 /**
  * Wrap up fetch!
- * @param url
+ * @param uri
  * @param options
  */
 export function request(uri, options = {}) {
-  return fetch(`${baseUrl}/${uri}`, options);
+  return fetch(`${baseUrl}/${uri}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    ...options,
+  })
+    .then(checkStatus)
+    .then(res => res.json());
 }
 
 /**
@@ -23,7 +30,22 @@ export function toQueryString(params) {
     .map(key => [key, params[key]].map(encodeURIComponent))
     .reduce(
       (queryString, [key, val]) => `${queryString}${key}=${val}&`,
-      '?'
+      ''
     )
     .replace(/[?&]$/, '');
+}
+
+/**
+ * Reject the bad apples!
+ * @param res
+ * @return {*}
+ */
+function checkStatus(res) {
+  if (res.status > 300) {
+    const error = new Error(res.statusText);
+    error.response = res;
+    throw error;
+  }
+
+  return res;
 }

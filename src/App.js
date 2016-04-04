@@ -1,16 +1,25 @@
 import React from 'react';
+import _ from 'lodash';
 import { AppLayout } from './components/AppLayout';
-import { Message } from './components/Message';
-import { MessageBrowser } from './components/MessageBrowser';
 import { request, toQueryString } from './util/http';
 
-const initialState = {
-  messages: [],
-  filterFlagged: false,
-  searchText: '',
-  lastQueryString: null,
-  selectedMessageId: null,
-};
+/**
+ * Build up query string from state.
+ * @param state
+ * @return string
+ */
+function buildQueryString(state) {
+  const {filterFlagged, searchText} = state;
+  const queryParams = {
+    _limit: 5,
+  };
+  if (filterFlagged)
+    queryParams.flagged = true;
+  if (searchText)
+    queryParams.q = searchText.trim();
+
+  return toQueryString(queryParams);
+}
 
 /**
  * The top level App component!
@@ -18,20 +27,18 @@ const initialState = {
 export const App = React.createClass({
 
   getInitialState() {
-    return initialState;
+    return {
+      messages: [],
+      loading: false,
+      filterFlagged: false,
+      searchText: '',
+      // TODO: sortBy
+    };
   },
 
-  componentDidMount() {
-    this.requestMessages(this.state);
-  },
-
-  componentDidUpdate(nextProps, prevState) {
-    const {state} = this;
-    if (
-      state.filterFlagged !== prevState.filterFlagged ||
-      state.searchText !== prevState.searchText
-    ) {
-      this.requestMessages(state);
+  componentDidUpdate(prevProps, prevState) {
+    if (buildQueryString(this.state) !== buildQueryString(prevState)) {
+      this.requestMessages();
     }
   },
 
@@ -43,39 +50,36 @@ export const App = React.createClass({
     this.setState({searchText});
   },
 
-  selectMessage(id) {
-    this.setState({selectedMessageId: id});
-  },
+  /**
+   * GET /messages - Query string based on state.
+   */
+  requestMessages() {
+    this.setState({loading: true});
 
-  getMessage(id) {
-    const [message] = this.state.messages
-      .filter(m => m.id === id);
-
-    return message;
+    request(`messages?${buildQueryString(this.state)}`)
+      .then(messages => this.setState({
+        messages,
+        loading: false,
+      }))
+      .catch(err => this.setState({
+        loading: false,
+      }));
   },
 
   /**
-   * GET /messages - Query string based on state.
-   * @param state
+   * GET /messages/:id
    */
-  requestMessages(state) {
-    const {filterFlagged, searchText, lastQueryString} = state;
+  requestMessage(id) {
+    this.setState({loading: true});
 
-    const params = {_limit: 5};
-    if (filterFlagged)
-      params.flagged = true;
-    if (searchText)
-      params.q = searchText.trim();
-
-    const queryString = toQueryString(params);
-    if (queryString === lastQueryString)
-      return;
-
-    this.setState({lastQueryString: queryString});
-
-    request(`messages${queryString}`)
-      .then(res => res.json())
-      .then(json => this.setState({messages: json}));
+    request(`messages/${id}`)
+      .then(message => this.setState({
+        messages: [message],
+        loading: false,
+      }))
+      .catch(err => this.setState({
+        loading: false,
+      }));
   },
 
   /**
@@ -83,13 +87,10 @@ export const App = React.createClass({
    * @param id
    */
   toggleMessageFlagged(id) {
-    const message = this.getMessage(id);
+    const message = _.find(this.state.messages, {id: Number(id)});
 
     request(`messages/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify({
         flagged: !message.flagged
       })
@@ -120,32 +121,20 @@ export const App = React.createClass({
   },
 
   render() {
-    const {
-      children,
-    } = this.props;
-    const {
-      messages,
-      searchText,
-      filterFlagged,
-      selectedMessageId,
-    } = this.state;
-
     const childrenProps = {
-      messages,
-      searchText,
-      filterFlagged,
-      selectedMessageId,
+      ...this.state,
+      requestMessage: this.requestMessage,
+      requestMessages: this.requestMessages,
       updateFilterFlagged: this.updateFilterFlagged,
       updateSearchText: this.updateSearchText,
       deleteMessage: this.deleteMessage,
       toggleMessageFlagged: this.toggleMessageFlagged,
-      selectMessage: this.selectMessage,
     };
 
     return (
       <AppLayout>
         {React.Children.map(
-          children,
+          this.props.children,
           child => React.cloneElement(child, childrenProps)
         )}
       </AppLayout>

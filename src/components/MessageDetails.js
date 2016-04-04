@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Icon } from './Icon';
 
-export function Message({message, deleteMessage}) {
-  const deleteMe = () => deleteMessage(message.id);
+export function MessageDetails({message, deleteMessage}) {
   return (
     <div>
       <Link to="/" className="button is-info is-outlined">
         Back
       </Link>
-      <button onClick={deleteMe} className="button is-danger is-outlined is-pulled-right">
+      <button onClick={deleteMessage} className="button is-danger is-outlined is-pulled-right">
         <Icon name="trash" />
       </button>
       <hr />

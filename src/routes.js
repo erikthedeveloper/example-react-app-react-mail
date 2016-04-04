@@ -1,14 +1,14 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { App } from './App';
-import { MessageBrowser } from './components/MessageBrowser';
-import { MessageRoute } from './components/MessageRoute';
+import { MessageBrowserContainer } from './components/MessageBrowserContainer';
+import { MessageDetailsContainer } from './components/MessageDetailsContainer';
 
 export const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={MessageBrowser} />
-      <Route path=":id" component={MessageRoute} />
+      <IndexRoute component={MessageBrowserContainer} />
+      <Route path=":id" component={MessageDetailsContainer} />
     </Route>
   </Router>
 );
