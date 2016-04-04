@@ -1,8 +1,8 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { App } from './App';
-import { MessageBrowserContainer } from './components/MessageBrowserContainer';
-import { MessageDetailsContainer } from './components/MessageDetailsContainer';
+import { MessageBrowserContainer } from './components/containers/MessageBrowserContainer';
+import { MessageDetailsContainer } from './components/containers/MessageDetailsContainer';
 
 export const routes = (
   <Router history={browserHistory}>

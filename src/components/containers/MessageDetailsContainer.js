@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { MessageDetails } from './MessageDetails';
+import { MessageDetails } from './../MessageDetails';
 
 /**
  * Pluck "active" message out of props

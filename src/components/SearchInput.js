@@ -10,9 +10,7 @@ export function SearchInput({
     ({target: {value}}) => onChange(value);
 
   return (
-    <div
-      className={classnames('control', {'is-loading': loading})}
-    >
+    <div className={classnames('control', {'is-loading': loading})}>
       <input
         type="text"
         className="input"

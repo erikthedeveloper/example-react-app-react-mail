@@ -5,9 +5,6 @@ export function Sidebar({
   updateFilterFlagged
   }) {
 
-  const handleCheck =
-    ({target: {checked}}) => updateFilterFlagged(checked);
-
   return (
     <div className="content">
       <h3>
@@ -35,7 +32,7 @@ export function Sidebar({
           <input
             type="checkbox"
             checked={filterFlagged}
-            onChange={handleCheck}
+            onChange={({target: {checked}}) => updateFilterFlagged(checked)}
           />
           Flagged
         </label>
@@ -43,10 +40,7 @@ export function Sidebar({
 
       <div>
         <label className="checkbox is-disabled">
-          <input
-            type="checkbox"
-            disabled
-          />
+          <input type="checkbox" disabled />
           Unread
         </label>
       </div>
