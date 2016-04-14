@@ -9,38 +9,52 @@ const makeEventKiller = fn => event => {
   fn();
 };
 
+/**
+ * Get the difference between 2 dates in days.
+ * @param {Date} before
+ * @param {Date} after
+ * @return {number}
+ */
+function humanizedDiff(before, after = new Date()) {
+  const daysDiff = Math.round((after - before) / (24 * 60 * 60 * 1000));
+  return (daysDiff < 30)
+    ? `${daysDiff} days`
+    : `${Math.round(daysDiff / 30)} months`;
+}
+
 export function MessageListItem(props) {
   const {
-    message: {id, from, fromAvatar, subject, body, flagged},
+    message,
     deleteMessage,
     toggleFlagged,
   } = props;
 
   const onClickFlag = makeEventKiller(toggleFlagged);
   const onClickDelete = makeEventKiller(deleteMessage);
-  const onClickReply = makeEventKiller(() => alert(`Reply to ${from}`));
+  const onClickReply = makeEventKiller(() => alert(`Reply to ${message.from}`));
 
   return (
     <div className="media hide message-list-item">
       <div className="media-left">
         <div className="image is-64x64">
-          <img src={fromAvatar} />
+          <img src={message.fromAvatar} />
         </div>
       </div>
       <div className="media-content content columns">
         <div className="column is-10">
-          <Link to={`/${id}`} className="is-link">
-            {subject}
+          <Link to={`/${message.id}`} className="is-link">
+            {message.subject}
           </Link>
           <p>
-            {`${body.substring(0, 100 )}...`}
+            {`${message.body.substring(0, 100 )}...`}
           </p>
           <div>
             <small>
               <a className="is-link" onClick={onClickReply}>
-                Reply to {from}
-              </a> ·
-              2 Days Ago ·
+                Reply to {message.from}
+              </a>
+              {' ● '}
+              {humanizedDiff(new Date(message.sent))} ago ●
               <Icon name="trash" onClick={onClickDelete} />
             </small>
           </div>
@@ -48,7 +62,7 @@ export function MessageListItem(props) {
         <div className="column flex-center-all" onClick={onClickFlag}>
           <Icon
             name="flag"
-            className={classnames('clickable', {'text-red': flagged})}
+            className={classnames('clickable', {'text-red': message.flagged})}
           />
         </div>
       </div>

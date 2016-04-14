@@ -9,6 +9,7 @@ const message = (props) => Object.assign({
   subject: faker.company.catchPhrase(),
   body: fakeBody(),
   flagged: faker.random.boolean(),
+  sent: faker.date.past(1).toISOString(),
 }, props);
 
 const messages = [];
