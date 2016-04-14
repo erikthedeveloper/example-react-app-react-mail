@@ -13,18 +13,18 @@
     "json-server": "json-server json-server.js --port=3001"
   },
   "dependencies": {
-    "axios": "~0.9.1",
-    "classnames": "~2.2.3",
-    "lodash": "~4.7.0",
-    "react": "0.14.x",
-    "react-dom": "0.14.x",
-    "react-router": "2.0.1"
+    "axios": "^0.9.1",
+    "classnames": "^2.2.3",
+    "lodash": "^4.11.1",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-router": "^2.2.2"
   },
   "devDependencies": {
-    "faker": "~3.1.0",
-    "json-server": "~0.8.9",
-    "nwb": "~0.8.x",
-    "nwb-sass": "~0.5.0"
+    "faker": "^3.1.0",
+    "json-server": "^0.8.9",
+    "nwb": "^0.8.1",
+    "nwb-sass": "^0.5.0"
   },
   "author": "",
   "license": "MIT",
