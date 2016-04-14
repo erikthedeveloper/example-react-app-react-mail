@@ -6,7 +6,7 @@ import { request, toQueryString } from './../../util/http';
 /**
  * The top level App component!
  */
-export const AppContainer = React.createClass({
+export const App = React.createClass({
 
   getInitialState() {
     return {
@@ -102,8 +102,8 @@ export const AppContainer = React.createClass({
       });
   },
 
-  render() {
-    const childrenProps = {
+  getChildProps() {
+    return {
       ...this.state,
       requestMessage: this.requestMessage,
       requestMessages: this.requestMessages,
@@ -112,12 +112,15 @@ export const AppContainer = React.createClass({
       deleteMessage: this.deleteMessage,
       toggleMessageFlagged: this.toggleMessageFlagged,
     };
+  },
 
+  render() {
+    const childProps = this.getChildProps();
     return (
       <AppLayout>
         {React.Children.map(
           this.props.children,
-          child => React.cloneElement(child, childrenProps)
+          child => React.cloneElement(child, childProps)
         )}
       </AppLayout>
     );

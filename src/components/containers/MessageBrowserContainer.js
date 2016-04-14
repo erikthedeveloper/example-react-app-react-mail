@@ -1,6 +1,5 @@
 import React from 'react';
 import { MessageBrowser } from './../MessageBrowser';
-import { toQueryString } from '../../util/http';
 
 export const MessageBrowserContainer = React.createClass({
 

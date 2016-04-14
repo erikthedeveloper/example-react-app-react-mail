@@ -2,8 +2,8 @@ import expect from 'expect'
 import React from 'react'
 import {render, unmountComponentAtNode} from 'react-dom'
 
-import App from 'src/AppContainer'
+import App from 'src/App'
 
-describe('AppContainer component', () => {
+describe('App component', () => {
   it('does all the things!');
 });
