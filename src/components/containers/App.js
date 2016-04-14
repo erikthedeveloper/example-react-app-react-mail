@@ -1,7 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import _ from 'lodash';
 import { AppLayout } from './../AppLayout';
-import { request, toQueryString } from './../../util/http';
 
 /**
  * The top level App component!
@@ -19,7 +19,7 @@ export const App = React.createClass({
   },
 
   componentDidUpdate(prevProps, prevState) {
-    if (buildQueryString(this.state) !== buildQueryString(prevState)) {
+    if (!_.isEqual(stateToQueryParams(this.state), stateToQueryParams(prevState))) {
       this.requestMessages();
     }
   },
@@ -38,7 +38,7 @@ export const App = React.createClass({
   requestMessages() {
     this.setState({loading: true});
 
-    request(`messages?${buildQueryString(this.state)}`)
+    axios.get('messages', {params: stateToQueryParams(this.state)})
       .then(messages => this.setState({
         messages,
         loading: false,
@@ -54,7 +54,7 @@ export const App = React.createClass({
   requestMessage(id) {
     this.setState({loading: true});
 
-    request(`messages/${id}`)
+    axios.get(`messages/${id}`)
       .then(message => this.setState({
         messages: [message],
         loading: false,
@@ -70,22 +70,17 @@ export const App = React.createClass({
    */
   toggleMessageFlagged(id) {
     const message = _.find(this.state.messages, {id: Number(id)});
+    const flagged = !message.flagged;
 
-    request(`messages/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        flagged: !message.flagged
-      })
-    })
-      .then(() => {
-        const messages = this.state.messages
-          .map(message => (message.id !== id) ? message : {
-            ...message,
-            flagged: !message.flagged,
-          });
-
-        this.setState({messages});
-      })
+    axios.patch(`messages/${id}`, {flagged})
+      .then(() => this.setState({
+        messages: this.state.messages
+          .map(message => message.id !== id
+            ? message
+            : {...message, flagged}
+          )
+        })
+      );
   },
 
   /**
@@ -93,13 +88,11 @@ export const App = React.createClass({
    * @param id
    */
   deleteMessage(id) {
-    request(`messages/${id}`, {method: 'DELETE'})
-      .then(() => {
-        const messages = this.state.messages
-          .filter(message => message.id !== id);
-
-        this.setState({messages});
-      });
+    axios.delete(`messages/${id}`)
+      .then(() => this.setState({
+        messages: this.state.messages
+          .filter(message => message.id !== id)
+      }));
   },
 
   getChildProps() {
@@ -132,7 +125,7 @@ export const App = React.createClass({
  * @param state
  * @return string
  */
-function buildQueryString(state) {
+function stateToQueryParams(state) {
   const {filterFlagged, searchText} = state;
   const queryParams = {
     _limit: 5,
@@ -142,5 +135,5 @@ function buildQueryString(state) {
   if (searchText)
     queryParams.q = searchText.trim();
 
-  return toQueryString(queryParams);
+  return queryParams;
 }
