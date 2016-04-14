@@ -14,7 +14,8 @@ export const App = React.createClass({
       loading: false,
       filterFlagged: false,
       searchText: '',
-      // TODO: sortBy
+      sentOrder: 'DESC',
+      // TODO: Pagination "load more"
     };
   },
 
@@ -30,6 +31,10 @@ export const App = React.createClass({
 
   updateSearchText(searchText) {
     this.setState({searchText});
+  },
+
+  updateSentOrder(sentOrder) {
+    this.setState({sentOrder});
   },
 
   /**
@@ -102,6 +107,7 @@ export const App = React.createClass({
       requestMessages: this.requestMessages,
       updateFilterFlagged: this.updateFilterFlagged,
       updateSearchText: this.updateSearchText,
+      updateSentOrder: this.updateSentOrder,
       deleteMessage: this.deleteMessage,
       toggleMessageFlagged: this.toggleMessageFlagged,
     };
@@ -126,9 +132,11 @@ export const App = React.createClass({
  * @return string
  */
 function stateToQueryParams(state) {
-  const {filterFlagged, searchText} = state;
+  const {filterFlagged, sentOrder, searchText} = state;
   const queryParams = {
     _limit: 5,
+    _sort: 'sent',
+    _order: sentOrder,
   };
   if (filterFlagged)
     queryParams.flagged = true;

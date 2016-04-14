@@ -10,6 +10,8 @@ export function MessageBrowser(props) {
     updateFilterFlagged,
     searchText,
     updateSearchText,
+    sentOrder,
+    updateSentOrder,
     deleteMessage,
     toggleMessageFlagged,
   } = props;
@@ -20,6 +22,8 @@ export function MessageBrowser(props) {
         <Sidebar
           filterFlagged={filterFlagged}
           updateFilterFlagged={updateFilterFlagged}
+          sentOrder={sentOrder}
+          updateSentOrder={updateSentOrder}
         />
       </div>
       <div className="column">

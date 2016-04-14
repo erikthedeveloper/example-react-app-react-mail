@@ -2,7 +2,9 @@ import React from 'react';
 
 export function Sidebar({
   filterFlagged,
-  updateFilterFlagged
+  updateFilterFlagged,
+  sentOrder,
+  updateSentOrder,
   }) {
 
   return (
@@ -16,9 +18,12 @@ export function Sidebar({
       </label>
       <p className="control">
         <span className="select">
-          <select>
-            <option>Most Recent</option>
-            <option>Least Recent</option>
+          <select
+            value={sentOrder}
+            onChange={({target: {value}}) => updateSentOrder(value)}
+          >
+            <option value="DESC">Most Recent</option>
+            <option value="ASC">Least Recent</option>
           </select>
         </span>
       </p>
