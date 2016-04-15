@@ -10,7 +10,7 @@
     "nwb-server": "nwb serve --fallback --auto-install --reload",
     "test": "nwb test",
     "test:watch": "nwb test --server",
-    "json-server": "json-server json-server.js --port=3001"
+    "json-server": "json-server json-server.js --port=3001 --delay=500"
   },
   "dependencies": {
     "axios": "~0.9.1",

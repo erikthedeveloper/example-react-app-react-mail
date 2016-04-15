@@ -21,6 +21,10 @@
   }
 }
 
+.button.is-loading:focus {
+  color: transparent;
+}
+
 body, html {
   background-color: #FFF;
 }

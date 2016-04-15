@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Sidebar } from './Sidebar';
 import { SearchInput } from './SearchInput';
 import { MessageListItem } from './MessageListItem';
@@ -7,6 +8,7 @@ export const MessageBrowser = (props) => {
   const {
     messages,
     loadMore,
+    loading,
     filterFlagged,
     updateFilterFlagged,
     searchText,
@@ -31,6 +33,7 @@ export const MessageBrowser = (props) => {
         <SearchInput
           value={searchText}
           onChange={updateSearchText}
+          loading={loading}
         />
         {messages.map(message => (
           <MessageListItem
@@ -42,7 +45,7 @@ export const MessageBrowser = (props) => {
         ))}
         <div className="is-text-centered">
           <hr />
-          <button className="button is-primary" onClick={loadMore}>
+          <button className={classnames('button is-primary', {'is-loading': loading})} onClick={(loadMore)}>
             Load More
           </button>
         </div>
