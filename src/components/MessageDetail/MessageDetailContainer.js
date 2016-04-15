@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import { MessageDetails } from './../MessageDetails';
+import { MessageDetail } from './MessageDetail';
 
-export const MessageDetailsContainer = React.createClass({
+export const MessageDetailContainer = React.createClass({
 
   contextTypes: {
     router: React.PropTypes.object,
@@ -82,7 +82,7 @@ export const MessageDetailsContainer = React.createClass({
       toggleFlagged: this.toggleFlagged,
     };
 
-    return <MessageDetails {...props} />;
+    return <MessageDetail {...props} />;
   },
 });
 

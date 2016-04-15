@@ -1,14 +1,14 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { App } from './components/containers/App';
-import { MessageBrowserContainer } from './components/containers/MessageBrowserContainer';
-import { MessageDetailsContainer } from './components/containers/MessageDetailsContainer';
+import { App } from './App';
+import { MessageBrowserContainer } from './components/MessageBrowser/MessageBrowserContainer';
+import { MessageDetailContainer } from './components/MessageDetail/MessageDetailContainer';
 
 export const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={MessageBrowserContainer} />
-      <Route path=":id" component={MessageDetailsContainer} />
+      <Route path=":id" component={MessageDetailContainer} />
     </Route>
   </Router>
 );

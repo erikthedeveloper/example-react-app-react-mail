@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { MessageBrowser } from './../MessageBrowser';
+import { MessageBrowser } from './MessageBrowser';
 
 export const MessageBrowserContainer = React.createClass({
 

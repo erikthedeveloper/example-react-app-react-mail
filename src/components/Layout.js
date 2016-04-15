@@ -18,7 +18,7 @@ const Header = ({title, subtitle}) => (
   </section>
 );
 
-export function AppLayout({children}) {
+export function Layout({children}) {
   return (
     <div>
       <Header

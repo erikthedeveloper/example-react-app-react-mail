@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import { AppLayout } from './../AppLayout';
+import { Layout } from './components/Layout';
 
 /**
  * The top level App component!
@@ -58,12 +58,12 @@ export const App = React.createClass({
     };
 
     return (
-      <AppLayout>
+      <Layout>
         {React.Children.map(
           this.props.children,
           child => React.cloneElement(child, childProps)
         )}
-      </AppLayout>
+      </Layout>
     );
   }
 });
