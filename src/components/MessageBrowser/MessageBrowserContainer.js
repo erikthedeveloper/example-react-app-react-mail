@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 import { MessageBrowser } from './MessageBrowser';
 
 export const MessageBrowserContainer = React.createClass({
@@ -11,6 +12,8 @@ export const MessageBrowserContainer = React.createClass({
   },
 
   componentDidMount() {
+    // Debounce requestMessages so we aren't submitting crazy requests on typing/etc...!
+    this.requestMessages = _.debounce(this.requestMessages, 750, {leading: true});
     const {props: {messages}, requestMessages} = this;
     if (messages.length <= 1) {
       requestMessages();
