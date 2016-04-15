@@ -6,6 +6,7 @@ import { MessageListItem } from './MessageListItem';
 export function MessageBrowser(props) {
   const {
     messages,
+    loadMore,
     filterFlagged,
     updateFilterFlagged,
     searchText,
@@ -39,6 +40,12 @@ export function MessageBrowser(props) {
             message={message}
           />
         ))}
+        <div className="is-text-centered">
+          <hr />
+          <button className="button is-primary" onClick={loadMore}>
+            Load More
+          </button>
+        </div>
       </div>
     </div>
   );

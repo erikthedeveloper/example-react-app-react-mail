@@ -15,13 +15,20 @@ export const App = React.createClass({
       filterFlagged: false,
       searchText: '',
       sentOrder: 'DESC',
-      // TODO: Pagination "load more"
+      page: 1,
     };
   },
 
   componentDidUpdate(prevProps, prevState) {
-    if (!_.isEqual(stateToQueryParams(this.state), stateToQueryParams(prevState))) {
-      this.requestMessages();
+    // TODO: Refactor this into MessageBrowser using props.
+    if (queryParamsChanged(this.state, prevState)) {
+      const {page} = this.state;
+      if (page > 1 && page === prevState.page) {
+        // setState is highly discouraged within didUpdate.
+        this.setState({page: 1});
+      } else {
+        this.requestMessages();
+      }
     }
   },
 
@@ -45,12 +52,20 @@ export const App = React.createClass({
 
     axios.get('messages', {params: stateToQueryParams(this.state)})
       .then(messages => this.setState({
-        messages,
+        messages: this.state.page > 1
+          ? [...this.state.messages, ...messages]
+          : messages,
         loading: false,
       }))
       .catch(err => this.setState({
         loading: false,
       }));
+  },
+
+  loadMore() {
+    this.setState({
+      page: this.state.page + 1
+    })
   },
 
   /**
@@ -105,6 +120,7 @@ export const App = React.createClass({
       ...this.state,
       requestMessage: this.requestMessage,
       requestMessages: this.requestMessages,
+      loadMore: this.loadMore,
       updateFilterFlagged: this.updateFilterFlagged,
       updateSearchText: this.updateSearchText,
       updateSentOrder: this.updateSentOrder,
@@ -132,9 +148,11 @@ export const App = React.createClass({
  * @return string
  */
 function stateToQueryParams(state) {
-  const {filterFlagged, sentOrder, searchText} = state;
+  const {filterFlagged, sentOrder, searchText, page} = state;
+  const pageSize = 5;
   const queryParams = {
-    _limit: 5,
+    _start: (page - 1) * pageSize,
+    _end: ((page - 1) * pageSize) + pageSize,
     _sort: 'sent',
     _order: sentOrder,
   };
@@ -144,4 +162,14 @@ function stateToQueryParams(state) {
     queryParams.q = searchText.trim();
 
   return queryParams;
+}
+
+/**
+ * Check if queryParams have changed.
+ * @param stateA
+ * @param stateB
+ * @return {boolean}
+ */
+function queryParamsChanged(stateA, stateB) {
+  return !_.isEqual(stateToQueryParams(stateB), stateToQueryParams(stateA))
 }
