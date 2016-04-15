@@ -1,30 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import _ from 'lodash';
 import { MessageDetails } from './../MessageDetails';
-
-/**
- * Pluck "active" message out of props
- * @param props
- */
-const findMessage = (props) => _.find(props.messages, {
-  id: Number(props.params.id),
-});
-
-/**
- * Based on "before" and "now", should we redirect?
- *  We don't have the message "now" AND
- *  We had the message "before" - "Message was deleted" OR
- *  Done loading - "Message not found"
- *
- * @param prevProps
- * @param props
- * @return boolean
- */
-const shouldRedirect = (prevProps, props) =>
-  !findMessage(props) && (
-    findMessage(prevProps) ||
-    (prevProps.loading && !props.loading)
-  );
 
 export const MessageDetailsContainer = React.createClass({
 
@@ -32,16 +9,39 @@ export const MessageDetailsContainer = React.createClass({
     router: React.PropTypes.object,
   },
 
+  getInitialState() {
+    return {
+      loading: false,
+    };
+  },
+
   componentDidMount() {
-    const {requestMessage, params} = this.props;
-    if (!findMessage(this.props)) {
+    const {props: {params}, requestMessage} = this;
+    if (!routeMessage(this.props)) {
       requestMessage(params.id);
     }
   },
 
-  /** React to state changes */
-  componentDidUpdate(prevProps) {
-    if (shouldRedirect(prevProps, this.props)) {
+  componentWillReceiveProps(nextProps) {
+    // We got our route message! Is this the ideal solution/pattern?
+    if (this.props.messages.length === 0 && nextProps.messages.length > 0) {
+      this.setState({loading: false});
+    }
+  },
+
+  componentDidUpdate(prevProps, prevState) {
+    // Based on "before" and "now", should we redirect?
+    const shouldRedirect =
+      // If we don't have it now...
+      !routeMessage(this.props) &&
+      (
+        // ...and we had it before (deleted)
+        routeMessage(prevProps) ||
+        // ...or we couldn't retrieve it
+        (prevState.loading && !this.state.loading)
+      );
+
+    if (shouldRedirect) {
       this.context.router.push('/');
     }
   },
@@ -56,8 +56,19 @@ export const MessageDetailsContainer = React.createClass({
     toggleMessageFlagged(Number(id));
   },
 
+  /**
+   * GET /messages/:id
+   */
+  requestMessage(id) {
+    this.setState({loading: true});
+
+    axios.get(`messages/${id}`)
+      .then(message => this.props.setMessages([message]))
+      .catch(err => this.setState({loading: false}));
+  },
+
   render() {
-    const message = findMessage(this.props);
+    const message = routeMessage(this.props);
 
     if (this.props.loading || !message) {
       return (
@@ -66,7 +77,6 @@ export const MessageDetailsContainer = React.createClass({
     }
 
     const props = {
-      ...this.props,
       message,
       deleteMessage: this.deleteMessage,
       toggleFlagged: this.toggleFlagged,
@@ -75,3 +85,14 @@ export const MessageDetailsContainer = React.createClass({
     return <MessageDetails {...props} />;
   },
 });
+
+/**
+ * Pluck "active" message for route out of props
+ * @param props
+ * @return {{}|bool}
+ */
+function routeMessage(props) {
+  return _.find(props.messages, {
+    id: Number(props.params.id),
+  });
+}
