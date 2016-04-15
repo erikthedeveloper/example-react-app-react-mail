@@ -7,10 +7,6 @@ export const MessageBrowserContainer = React.createClass({
   getInitialState() {
     return {
       loading: false,
-      filterFlagged: false,
-      searchText: '',
-      sentOrder: 'DESC',
-      page: 1,
     };
   },
 
@@ -21,52 +17,36 @@ export const MessageBrowserContainer = React.createClass({
     }
   },
 
-  componentDidUpdate(prevProps, prevState) {
-    if (queryParamsChanged(this.state, prevState)) {
+  componentDidUpdate(prevProps) {
+    if (paramsChanged(this.props, prevProps)) {
       // If anything other than the pagination info changed, reset back to 1st page.
-      const searchCriteriaChanged = this.state.page > 1 && this.state.page === prevState.page;
-      if (searchCriteriaChanged) {
-        // TODO: setState is discouraged within didUpdate. What is a more legitimate alternative? Is this a legit use case?
-        this.setState({page: 1});
+      if (this.props.page > 1 && this.props.page === prevProps.page) {
+        this.props.updatePage(1);
       } else {
         this.requestMessages();
       }
     }
   },
 
-  updateFilterFlagged(filterFlagged) {
-    this.setState({filterFlagged});
-  },
-
-  updateSearchText(searchText) {
-    this.setState({searchText});
-  },
-
-  updateSentOrder(sentOrder) {
-    this.setState({sentOrder});
-  },
-
-  loadMore() {
-    this.setState({
-      page: this.state.page + 1
-    })
-  },
-
   /**
-   * GET /messages - Query string based on state.
+   * GET /messages - Query string based on props.
    */
   requestMessages() {
     this.setState({loading: true});
 
-    axios.get('messages', {params: stateToQueryParams(this.state)})
+    axios.get('messages', {params: propsToParams(this.props)})
       .then(messages => {
         this.setState({loading: false});
-        const newMessages = this.state.page > 1
+        const newMessages = this.props.page > 1
           ? [...this.props.messages, ...messages]
           : messages;
-        this.props.setMessages(newMessages);
+        this.props.updateMessages(newMessages);
       })
       .catch(err => this.setState({loading: false}));
+  },
+
+  loadMore() {
+    this.props.updatePage(this.props.page + 1);
   },
 
   render() {
@@ -75,12 +55,12 @@ export const MessageBrowserContainer = React.createClass({
       deleteMessage: this.props.deleteMessage,
       toggleMessageFlagged: this.props.toggleMessageFlagged,
       loadMore: this.loadMore,
-      filterFlagged: this.state.filterFlagged,
-      updateFilterFlagged: this.updateFilterFlagged,
-      searchText: this.state.searchText,
-      updateSearchText: this.updateSearchText,
-      sentOrder: this.state.sentOrder,
-      updateSentOrder: this.updateSentOrder,
+      filterFlagged: this.props.filterFlagged,
+      updateFilterFlagged: this.props.updateFilterFlagged,
+      searchText: this.props.searchText,
+      updateSearchText: this.props.updateSearchText,
+      sentOrder: this.props.sentOrder,
+      updateSentOrder: this.props.updateSentOrder,
     };
 
     return <MessageBrowser {...props} />;
@@ -88,12 +68,12 @@ export const MessageBrowserContainer = React.createClass({
 });
 
 /**
- * Build up query string from state.
- * @param state
+ * Build up query params from props.
+ * @param props
  * @return string
  */
-function stateToQueryParams(state) {
-  const {filterFlagged, sentOrder, searchText, page} = state;
+function propsToParams(props) {
+  const {filterFlagged, sentOrder, searchText, page} = props;
   const pageSize = 5;
   const queryParams = {
     _start: (page - 1) * pageSize,
@@ -111,10 +91,10 @@ function stateToQueryParams(state) {
 
 /**
  * Check if queryParams have changed.
- * @param stateA
- * @param stateB
+ * @param propsA
+ * @param propsB
  * @return {boolean}
  */
-function queryParamsChanged(stateA, stateB) {
-  return !_.isEqual(stateToQueryParams(stateB), stateToQueryParams(stateA))
+function paramsChanged(propsA, propsB) {
+  return !_.isEqual(propsToParams(propsB), propsToParams(propsA))
 }

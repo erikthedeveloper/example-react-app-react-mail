@@ -11,11 +11,32 @@ export const App = React.createClass({
   getInitialState() {
     return {
       messages: [],
+      // These are on the App level to persist between browser/detail navigation
+      filterFlagged: false,
+      searchText: '',
+      sentOrder: 'DESC',
+      page: 1,
     };
   },
 
-  setMessages(messages) {
+  updateMessages(messages) {
     this.setState({messages});
+  },
+
+  updateFilterFlagged(filterFlagged) {
+    this.setState({filterFlagged});
+  },
+
+  updateSearchText(searchText) {
+    this.setState({searchText});
+  },
+
+  updateSentOrder(sentOrder) {
+    this.setState({sentOrder});
+  },
+
+  updatePage(page) {
+    this.setState({page});
   },
 
   /**
@@ -50,11 +71,23 @@ export const App = React.createClass({
   },
 
   render() {
+    const {
+      updateFilterFlagged,
+      updateSearchText,
+      updateSentOrder,
+      updateMessages,
+      deleteMessage,
+      toggleMessageFlagged,
+    } = this;
+
     const childProps = {
       ...this.state,
-      setMessages: this.setMessages,
-      deleteMessage: this.deleteMessage,
-      toggleMessageFlagged: this.toggleMessageFlagged,
+      updateFilterFlagged,
+      updateSearchText,
+      updateSentOrder,
+      updateMessages,
+      deleteMessage,
+      toggleMessageFlagged,
     };
 
     return (

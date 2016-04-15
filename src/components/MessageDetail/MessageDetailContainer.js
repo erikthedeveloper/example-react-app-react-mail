@@ -63,7 +63,7 @@ export const MessageDetailContainer = React.createClass({
     this.setState({loading: true});
 
     axios.get(`messages/${id}`)
-      .then(message => this.props.setMessages([message]))
+      .then(message => this.props.updateMessages([message]))
       .catch(err => this.setState({loading: false}));
   },
 
