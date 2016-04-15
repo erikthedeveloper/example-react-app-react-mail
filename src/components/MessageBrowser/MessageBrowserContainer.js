@@ -51,16 +51,9 @@ export const MessageBrowserContainer = React.createClass({
 
   render() {
     const props = {
-      messages: this.props.messages,
-      deleteMessage: this.props.deleteMessage,
-      toggleMessageFlagged: this.props.toggleMessageFlagged,
+      ...this.props,
       loadMore: this.loadMore,
-      filterFlagged: this.props.filterFlagged,
-      updateFilterFlagged: this.props.updateFilterFlagged,
-      searchText: this.props.searchText,
-      updateSearchText: this.props.updateSearchText,
-      sentOrder: this.props.sentOrder,
-      updateSentOrder: this.props.updateSentOrder,
+      loading: this.state.loading,
     };
 
     return <MessageBrowser {...props} />;

@@ -71,23 +71,15 @@ export const App = React.createClass({
   },
 
   render() {
-    const {
-      updateFilterFlagged,
-      updateSearchText,
-      updateSentOrder,
-      updateMessages,
-      deleteMessage,
-      toggleMessageFlagged,
-    } = this;
-
     const childProps = {
       ...this.state,
-      updateFilterFlagged,
-      updateSearchText,
-      updateSentOrder,
-      updateMessages,
-      deleteMessage,
-      toggleMessageFlagged,
+      updateMessages: this.updateMessages,
+      deleteMessage: this.deleteMessage,
+      toggleMessageFlagged: this.toggleMessageFlagged,
+      updateFilterFlagged: this.updateFilterFlagged,
+      updateSearchText: this.updateSearchText,
+      updateSentOrder: this.updateSentOrder,
+      updatePage: this.updatePage,
     };
 
     return (
