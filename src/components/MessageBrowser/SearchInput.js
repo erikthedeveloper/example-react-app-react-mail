@@ -1,11 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export function SearchInput({
-  loading,
-  onChange,
-  ...otherProps}) {
-
+export const SearchInput = (props) => {
+  const {loading, onChange, ...otherProps} = props;
   const updateValue =
     ({target: {value}}) => onChange(value);
 
@@ -20,4 +17,4 @@ export function SearchInput({
       />
     </div>
   );
-}
+};

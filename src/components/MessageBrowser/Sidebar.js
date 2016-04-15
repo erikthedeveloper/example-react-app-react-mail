@@ -1,11 +1,12 @@
 import React from 'react';
 
-export function Sidebar({
-  filterFlagged,
-  updateFilterFlagged,
-  sentOrder,
-  updateSentOrder,
-  }) {
+export const Sidebar = (props) => {
+  const {
+    filterFlagged,
+    updateFilterFlagged,
+    sentOrder,
+    updateSentOrder,
+  } = props;
 
   return (
     <div className="content">
@@ -51,4 +52,4 @@ export function Sidebar({
       </div>
     </div>
   );
-}
+};

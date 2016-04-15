@@ -22,7 +22,7 @@ function humanizedDiff(before, after = new Date()) {
     : `${Math.round(daysDiff / 30)} months`;
 }
 
-export function MessageListItem(props) {
+export const MessageListItem = (props) => {
   const {
     message,
     deleteMessage,
@@ -68,4 +68,4 @@ export function MessageListItem(props) {
       </div>
     </div>
   );
-}
+};

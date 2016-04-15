@@ -18,7 +18,7 @@ const Header = ({title, subtitle}) => (
   </section>
 );
 
-export function Layout({children}) {
+export const Layout = ({children}) => {
   return (
     <div>
       <Header
@@ -32,4 +32,4 @@ export function Layout({children}) {
       </div>
     </div>
   );
-}
+};

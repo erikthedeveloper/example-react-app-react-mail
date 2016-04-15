@@ -3,7 +3,7 @@ import { Sidebar } from './Sidebar';
 import { SearchInput } from './SearchInput';
 import { MessageListItem } from './MessageListItem';
 
-export function MessageBrowser(props) {
+export const MessageBrowser = (props) => {
   const {
     messages,
     loadMore,
@@ -49,4 +49,4 @@ export function MessageBrowser(props) {
       </div>
     </div>
   );
-}
+};

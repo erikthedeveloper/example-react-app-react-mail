@@ -5,7 +5,7 @@ import { Icon } from './../Icon';
 
 const btnClasses = "button is-outlined is-pulled-right";
 
-export function MessageDetail({message, deleteMessage, toggleFlagged}) {
+export const MessageDetail = ({message, deleteMessage, toggleFlagged})  => {
   return (
     <div>
       <Link to="/" className="button is-info is-outlined">
@@ -38,4 +38,4 @@ export function MessageDetail({message, deleteMessage, toggleFlagged}) {
       </div>
     </div>
   );
-}
+};
