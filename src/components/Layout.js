@@ -1,22 +1,5 @@
 import React from 'react';
-
-/**
- * "Private" mini-components within module.
- */
-const Header = ({title, subtitle}) => (
-  <section className="hero is-primary is-bold">
-    <div className="hero-content">
-      <div className="container">
-        <h1 className="title">
-          {title}
-        </h1>
-        <h2 className="subtitle">
-          {subtitle}
-        </h2>
-      </div>
-    </div>
-  </section>
-);
+import { Header } from './Header';
 
 export const Layout = ({children}) => {
   return (
