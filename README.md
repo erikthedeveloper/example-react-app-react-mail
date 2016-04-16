@@ -63,3 +63,11 @@ Using [axios](https://github.com/mzabriskie/axios), a [Promise](https://develope
 ### Testing
 
 TODO
+
+### Some Visual Highlights
+
+![image](https://cloud.githubusercontent.com/assets/1240178/14581298/7b94dd6c-03a6-11e6-9a2e-b083e7f01746.png)
+
+![image](https://cloud.githubusercontent.com/assets/1240178/14581305/bccbd18c-03a6-11e6-9023-a71a0d2f7676.png)
+
+![embracethejsx](https://cloud.githubusercontent.com/assets/1240178/14581308/ca584060-03a6-11e6-8155-e3dd735bfe66.png)
