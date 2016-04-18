@@ -2,53 +2,32 @@ import React from 'react';
 import classnames from 'classnames';
 import { Sidebar } from './Sidebar';
 import { SearchInput } from './SearchInput';
-import { MessageListItem } from './MessageListItem';
+import { MessageList } from './MessageList';
 
 export const MessageBrowser = (props) => {
-  const {
-    messages,
-    loadMore,
-    loading,
-    filterFlagged,
-    updateFilterFlagged,
-    searchText,
-    updateSearchText,
-    sentOrder,
-    updateSentOrder,
-    deleteMessage,
-    toggleMessageFlagged,
-  } = props;
-
   return (
     <div className="columns">
       <div className="column is-third">
         <Sidebar
-          filterFlagged={filterFlagged}
-          updateFilterFlagged={updateFilterFlagged}
-          sentOrder={sentOrder}
-          updateSentOrder={updateSentOrder}
+          filterFlagged={props.filterFlagged}
+          updateFilterFlagged={props.updateFilterFlagged}
+          sentOrder={props.sentOrder}
+          updateSentOrder={props.updateSentOrder}
         />
       </div>
       <div className="column">
         <SearchInput
-          value={searchText}
-          onChange={updateSearchText}
-          loading={loading}
+          value={props.searchText}
+          onChange={props.updateSearchText}
+          loading={props.loading}
         />
-        {messages.map(message => (
-          <MessageListItem
-            key={message.id}
-            deleteMessage={() => deleteMessage(message.id)}
-            toggleFlagged={() => toggleMessageFlagged(message.id)}
-            message={message}
-          />
-        ))}
-        <div className="is-text-centered">
-          <hr />
-          <button className={classnames('button is-primary', {'is-loading': loading})} onClick={(loadMore)}>
-            Load More
-          </button>
-        </div>
+        <MessageList
+          messages={props.messages}
+          loading={props.loading}
+          loadMore={props.loadMore}
+          deleteMessage={props.deleteMessage}
+          toggleMessageFlagged={props.toggleMessageFlagged}
+        />
       </div>
     </div>
   );
