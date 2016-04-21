@@ -14,6 +14,29 @@ My goal with this project, is for it to serve as a practical example that goes b
 
 **Contributions, Feedback, and Code Review are welcome!** Please, feel free to reach out with any questions, suggestions for improvements, or ideally Issues and/or Pull Requests :)
 
+## The App
+
+![reactmaillistanimation](https://cloud.githubusercontent.com/assets/1240178/14709257/f80d4ec6-078c-11e6-95bc-63c5c2817da8.gif)
+
+Some Basic Features/Highlights. _Hint: these should become tests :)_
+
+- Fetch data from JSON API (read)
+- Submit data to the JSON API (write)
+- Maintain local state
+- View a listing of messages
+  - Text search
+  - "Sort by"
+  - Filter by "flagged"
+  - "Load More" (i.e. pagination)
+  - Toggle a message's "flagged" status
+  - Delete a message
+- View a single message
+  - Toggle a message's "flagged" status
+  - Delete a message
+  - Navigate directly to `/:id` route and have appropriate message requested
+  - Redirect back to "messages" when `/:id` is not found OR is deleted
+- Animation via [ReactCSSTransitionGroup](https://facebook.github.io/react/docs/animation.html)
+
 ### React
 
 - [Stateless Function Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions)
