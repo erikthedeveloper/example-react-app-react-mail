@@ -1,0 +1,35 @@
+.flex-center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: inherit;
+}
+
+.icon,
+.clickable {
+  cursor: pointer;
+}
+
+.message-list-item {
+  margin-top: 0 !important;
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+
+.text-red {
+  color: red;
+  &:hover {
+    color: darken(red, 10%);
+  }
+}
+
+.button.is-loading:focus {
+  color: transparent;
+}
+
+body, html {
+  background-color: #FFF;
+}
