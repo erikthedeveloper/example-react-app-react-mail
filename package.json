@@ -8,7 +8,7 @@
     "clean": "nwb clean",
     "start": "npm run nwb-server & npm run json-server",
     "nwb-server": "nwb serve --fallback --auto-install --reload",
-    "test": "nwb test",
+    "test": "mocha ./src/**/*.test.js",
     "test:watch": "nwb test --server",
     "json-server": "json-server json-server.js --port=3001 --delay=500"
   },
@@ -22,10 +22,14 @@
     "react-router": "~2.2.2"
   },
   "devDependencies": {
+    "enzyme": "~2.2.0",
+    "expect": "~1.18.0",
     "faker": "^3.1.0",
     "json-server": "^0.8.9",
+    "mocha": "~2.4.5",
     "nwb": "~0.9.2",
-    "nwb-sass": "~0.5.0"
+    "nwb-sass": "~0.5.0",
+    "react-addons-test-utils": "~15.0.1"
   },
   "author": "",
   "license": "MIT",
