@@ -16,6 +16,17 @@ My goal with this project, is for it to serve as a practical example that goes b
 
 ## The App
 
+```
+# Install dependencies
+npm install
+
+# Start development servers (client + API)
+npm start
+
+# Run tests
+npm test
+```
+
 ![reactmaillistanimation](https://cloud.githubusercontent.com/assets/1240178/14709257/f80d4ec6-078c-11e6-95bc-63c5c2817da8.gif)
 
 Some Basic Features/Highlights. _Hint: these should become tests :)_
@@ -85,7 +96,21 @@ Using [axios](https://github.com/mzabriskie/axios), a [Promise](https://develope
 
 ### Testing
 
-TODO
+- Test runner: [mocha](http://mochajs.org/)
+- Assertions (and spies): [expect](https://www.npmjs.com/package/expect)
+- Unit testing React components with shallow rendering [Enzyme](http://airbnb.io/enzyme/docs/api/shallow.html)
+
+Unit tests live directly adjacent to the file under test. Example:
+
+```
+src/some/path/someModule.js
+src/some/path/someModule.test.js
+```
+
+Running Tests
+- Run all tests: `npm test`
+- Run specific tests: `npm test -- --grep='some pattern here'`
+- Run tests with a watch: `npm test -- --watch`
 
 ### Some Visual Highlights
 
