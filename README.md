@@ -69,34 +69,35 @@ Some Basic Features/Highlights. _Hint: these should become tests :)_
 
 ### Setting up a React, ES6+, Webpack, Babel Environment
 
-Just kidding. We'll let [nwb](https://github.com/insin/nwb) do all of that for us :)
+Just kidding. We'll let [create-react-app](https://github.com/facebookincubator/create-react-app) do all of that for us :) This way we don't get hung up on the myriad of ways we *could* go about this.
 
-All you need to know is 2 commands
+A few commands to know:
 
 - `npm install`: Install dependencies
-- `npm start`: Start development server (along w/ hot reloading and all the related goodness)
-- Now you can open your browser to http://localhost:3000/ and you should see the app running
-
-This way we don't get hung up on the myriad of ways we *could* go about this.
+- `npm start`: Start development server (open your browser to http://localhost:3000/ and you should see the app running)
+- `npm test`: Run tests.
 
 ### Communicating With a JSON API
 
 Using [axios](https://github.com/mzabriskie/axios), a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) based HTTP client, we communicate with a JSON API (powered by [json-server](https://github.com/typicode/json-server)) to:
 
-- Retreive a resource listing (`GET /`)
+- Retrieve a resource listing (`GET /`)
   - Work with managing our "query parameters" for pagination, filtering, and search
-- Retreive a single resource (`GET /:id`)
+- Retrieve a single resource (`GET /:id`)
 - Update a single resource (`PATCH /:id`)
 - Destroy a single resource (`DELETE /:id`)
 
-### Utility Libraries (embrace open source)
+### Useful Libraries
 
+- [axios](https://github.com/mzabriskie/axios) HTTP client
 - [lodash](https://lodash.com/docs) general Javascript utility library
 - [classsnames](https://github.com/JedWatson/classnames) to make dynamic HTML classNames more pleasant
 
 ### Testing
 
-- Test runner: [mocha](http://mochajs.org/)
+Running tests: `npm test`
+
+- Test runner: [jest](https://facebook.github.io/jest/)
 - Assertions (and spies): [expect](https://www.npmjs.com/package/expect)
 - Unit testing React components with shallow rendering [Enzyme](http://airbnb.io/enzyme/docs/api/shallow.html)
 
@@ -106,11 +107,6 @@ Unit tests live directly adjacent to the file under test. Example:
 src/some/path/someModule.js
 src/some/path/someModule.test.js
 ```
-
-Running Tests
-- Run all tests: `npm test`
-- Run specific tests: `npm test -- --grep='some pattern here'`
-- Run tests with a watch: `npm test -- --watch`
 
 ### Some Visual Highlights
 
