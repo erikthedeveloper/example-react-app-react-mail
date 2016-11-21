@@ -1,42 +1,28 @@
 {
-  "name": "messaging-app",
-  "version": "1.0.0",
-  "description": "Describe messaging-app here",
+  "name": "react-app",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "build": "nwb build",
-    "clean": "nwb clean",
-    "start": "npm run nwb-server & npm run json-server",
-    "nwb-server": "nwb serve --fallback --auto-install --reload",
-    "test": "mocha ./src/**/*.test.js",
-    "test:watch": "nwb test --server",
-    "json-server": "json-server json-server.js --port=3001 --delay=500"
+  "devDependencies": {
+    "faker": "^3.1.0",
+    "json-server": "^0.8.9",
+    "react-scripts": "0.7.0"
   },
   "dependencies": {
     "axios": "~0.9.1",
-    "babel-core": "^6.18.2",
     "classnames": "^2.2.3",
-    "lodash": "^4.17.2",
-    "react": "^15.4.0",
+    "enzyme": "^2.6.0",
+    "expect": "^1.20.2",
+    "react": "~15.4.0",
     "react-addons-css-transition-group": "^15.4.0",
-    "react-dom": "^15.4.0",
+    "react-addons-test-utils": "^15.4.0",
+    "react-dom": "~15.4.0",
     "react-router": "2.x"
   },
-  "devDependencies": {
-    "babel-preset-latest": "^6.16.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-3": "^6.17.0",
-    "babel-register": "^6.18.0",
-    "enzyme": "~2.2.0",
-    "expect": "~1.18.0",
-    "faker": "^3.1.0",
-    "json-server": "^0.8.9",
-    "mocha": "~2.4.5",
-    "nwb": "^0.12.2",
-    "nwb-sass": "^0.6.0",
-    "react-addons-test-utils": "^15.4.0"
-  },
-  "author": "",
-  "license": "MIT",
-  "repository": ""
+  "scripts": {
+    "start": "npm run json-server & react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "json-server": "json-server json-server.js --port=3001 --delay=500"
+  }
 }

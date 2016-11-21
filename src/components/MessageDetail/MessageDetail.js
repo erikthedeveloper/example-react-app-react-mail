@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { Icon } from './../Icon';
+import { Icon } from '../Icon';
 
 const btnClasses = "button is-outlined is-pulled-right";
 

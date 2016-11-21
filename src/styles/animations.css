@@ -1,0 +1,27 @@
+.animated-list-item-enter, .animated-list-item-leave {
+  transition: all 250ms ease-in;
+}
+
+/* Entering Start */
+.animated-list-item-enter {
+  height: 0;
+  opacity: 0;
+}
+
+/* Entering Complete */
+.animated-list-item-enter-active {
+  height: 110px;
+  opacity: 1;
+}
+
+/* Leaving Start */
+.animated-list-item-leave {
+  height: 110px;
+  opacity: 1;
+}
+
+/* Leaving Complete */
+.animated-list-item-leave-active {
+  height: 0;
+  opacity: 0;
+}

@@ -21,9 +21,10 @@
 
 .text-red {
   color: red;
-  &:hover {
-    color: darken(red, 10%);
-  }
+}
+
+.text-red:hover {
+  color: #D00000;
 }
 
 .button.is-loading:focus {
